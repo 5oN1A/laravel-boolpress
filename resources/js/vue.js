@@ -29,7 +29,7 @@
  import App from './components/App.vue';
  
  const app = new Vue({
-     el: '#app',
+     el: '#vue',
      render: h=> h(App)
  });
  
