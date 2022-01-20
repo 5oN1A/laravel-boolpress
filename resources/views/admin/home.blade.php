@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('name', 'private area')
+@dump($posts)
 
 @section('content')
 <div class="container">
