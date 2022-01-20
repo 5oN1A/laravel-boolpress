@@ -2,11 +2,11 @@
 
 @section('name', 'edit Post')
     
-@endsection
+
 
 @section('content')
     <div class="container">
-        <h1>New post</h1>
+        <h1>Edit post</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -19,8 +19,9 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.posts.store') }}" method="post">
+        <form action="{{ route('admin.posts.update', $post->id) }}" method="post">
             @csrf
+            @method('put')
 
             <div class="mb-3 form-group">
                 <label for="field_title" class="form-label">Title</label>
@@ -46,7 +47,7 @@
                 @endif
             </div>
 
-            <div class="form-group">
+            {{-- <div class="form-group">
 
                 <label class="form-label">Category</label>
 
@@ -59,7 +60,7 @@
                         Craft</option>
                 </select>
 
-            </div>
+            </div> --}}
 
 
 
@@ -69,6 +70,13 @@
       </div> 
 
         </form>
+
+        <form class="mb-0 mt-3 text-center" action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
+            @csrf
+            @method('delete')
+            <input class="btn btn-danger" type="submit" value="Delete This Post">
+        </form>
+
 
     </div>
 @endsection

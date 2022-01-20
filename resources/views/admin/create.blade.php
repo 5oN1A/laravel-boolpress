@@ -47,7 +47,7 @@
 
             <div class="form-group">
 
-                <label class="form-label">Category</label>
+               {{--  <label class="form-label">Category</label>
 
                 <select class="form-control @error('category') is-invalid @enderror" id="category" name="category" required>
                     <option value="travel">
@@ -57,7 +57,7 @@
                     <option value="craft">
                         Craft</option>
                 </select>
-
+ --}}
             </div>
 
 

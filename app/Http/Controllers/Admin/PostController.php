@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
-
+use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     /**
@@ -17,7 +17,7 @@ class PostController extends Controller
     {
         $posts = Post::all();
     
-        return view('admin.home', compact('posts'));
+        return view('admin.index', compact('posts'));
             
     }
 
@@ -42,7 +42,7 @@ class PostController extends Controller
         $request->validate([
             'title'=>'required|max:100|unique:posts,title',
             'content' =>'required',
-            'category'=>'required',
+           /*  'category'=>'required', */
             
         ]); 
 
@@ -51,8 +51,9 @@ class PostController extends Controller
        $newPost = new Post();
        $newPost->title = $data['title'];
        $newPost->content = $data['content'];
-       $newPost->category = $data['category'];
-     
+       /* $newPost->category = $data['category']; */
+       $newPost->user_id = Auth::user()->id;
+
        $newPost->save();
     
         return redirect()->route('admin.home', $newPost->id)->with('success','Post created successfully.');
@@ -67,7 +68,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-      //
+        return view('admin.show',compact('post'));
     }
 
     /**
@@ -88,9 +89,14 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->all();
+
+        $post->update($data);
+
+        return redirect()->route('admin.posts.show', $post->id);
+
     }
 
     /**
@@ -99,8 +105,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+  
+        public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('admin.posts.index');
     }
+
+    
 }
