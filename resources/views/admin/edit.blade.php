@@ -37,8 +37,9 @@
 
             <div class="mb-3 form-group">
                 <label for="field_content" class="form-label">Content</label>
-                <input type="content" class="form-control {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content"
-                    id="field_content" value="{{ $post->content }}">
+              
+                    <textarea class="form-control @error('content') is-invalid @enderror" name="content"
+                    value="{{ $post->content }}"></textarea>
 
                 @if ($errors->has('content'))
                     <div class="invalid-feedback">
@@ -57,6 +58,17 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                @foreach ($tags as $tag)
+                    <label>
+                        {{ $tag->tag_name }}
+                        <input name="tags[]" type="checkbox" value="{{ $tag->id }} @if ($post->tags->contains($tag)) checked @endif
+                        ">
+                    </label>
+                @endforeach
+            </div>
+
+
 
 
             <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-secondary mr-3" type="reset">Reset</a>
@@ -71,6 +83,11 @@
             <input class="btn btn-danger" type="submit" value="Delete This Post">
         </form>
 
-
+        
+        <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript">
+        </script>
+        <script type="text/javascript">
+            bkLib.onDomLoaded(nicEditors.allTextAreas);
+        </script>
     </div>
 @endsection

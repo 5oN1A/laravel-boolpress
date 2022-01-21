@@ -55,6 +55,16 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                @foreach ($tags as $tag)
+                    <label>
+                        {{ $tag->tag_name }}
+                        <input name="tags[]" type="checkbox" value="{{ $tag->id }}">
+                    </label>
+                @endforeach
+            </div>
+
+
             <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-secondary mr-3" type="reset">Reset</a>
             <button class="btn btn-success" type="submit">Create</button>
     </div>

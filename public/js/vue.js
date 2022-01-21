@@ -109,6 +109,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
@@ -649,13 +658,32 @@ var render = function () {
       _c(
         "ul",
         _vm._l(_vm.posts, function (post) {
-          return _c("li", { key: post.id }, [
-            _c("h2", {}, [_vm._v(_vm._s(post.title))]),
-            _vm._v(" "),
-            _c("h3", {}, [_vm._v(_vm._s(post.category.cat_name))]),
-            _vm._v(" "),
-            _c("small", [_vm._v("Author: " + _vm._s(post.user.name))]),
-          ])
+          return _c(
+            "li",
+            { key: post.id },
+            [
+              _c("h2", [_vm._v(_vm._s(post.title))]),
+              _vm._v(" "),
+              _c("h3", [_vm._v(_vm._s(post.category.cat_name))]),
+              _vm._v(" "),
+              _c("small", [_vm._v("Author: " + _vm._s(post.user.name))]),
+              _vm._v(" "),
+              _c("p", { domProps: { innerHTML: _vm._s(post.content) } }),
+              _vm._v(" "),
+              _vm._l(post.tags, function (tag) {
+                return _c(
+                  "span",
+                  {
+                    key: tag.id,
+                    staticClass:
+                      "badge bg-primary text-white ms-2 rounded-pill text-small",
+                  },
+                  [_vm._v(_vm._s(tag.tag_name))]
+                )
+              }),
+            ],
+            2
+          )
         }),
         0
       ),
