@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
 use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
@@ -28,7 +29,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.create');
+        $categories = Category::all();
+
+        return view("admin.create", compact("categories"));
+
     }
 
     /**
@@ -42,21 +46,21 @@ class PostController extends Controller
         $request->validate([
             'title'=>'required|max:100|unique:posts,title',
             'content' =>'required',
-           /*  'category'=>'required', */
+           
             
         ]); 
 
        $data = $request->all();
-
+        
        $newPost = new Post();
        $newPost->title = $data['title'];
        $newPost->content = $data['content'];
-       /* $newPost->category = $data['category']; */
+       $newPost->category_id = $data['category_id'];
        $newPost->user_id = Auth::user()->id;
 
        $newPost->save();
     
-        return redirect()->route('admin.home', $newPost->id)->with('success','Post created successfully.');
+        return redirect()->route('admin.posts.index', $newPost->id)->with('success','Post created successfully.');
     
     }
 
@@ -79,7 +83,16 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-         return view('admin.edit', compact('post'));
+
+        $categories = Category::all();
+
+         return view('admin.edit', [
+      "post" => $post,
+      "categories" => $categories,
+      /* "tags" => $tags */
+    ]);
+
+   
     }
 
     /**
@@ -94,6 +107,8 @@ class PostController extends Controller
         $data = $request->all();
 
         $post->update($data);
+
+        
 
         return redirect()->route('admin.posts.show', $post->id);
 

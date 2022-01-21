@@ -1,20 +1,15 @@
 <template>
-
   <div class="container">
-    <nav>
-      <a href="/login">Login</a>
-      <a href="/register">Register</a>
-    </nav>
-
     <main>
       <ul>
         <li v-for="post in posts" :key="post.id">
-          <h2 class="post-title">{{ post.title }}</h2>
+          <h2 class="">{{ post.title }}</h2>
+          <h3 class="">{{ post.category.cat_name }}</h3>
+          <small>Author: {{ post.user.name }}</small>
         </li>
       </ul>
     </main>
   </div>
-
 </template>
 
 <script>

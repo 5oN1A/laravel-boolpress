@@ -109,11 +109,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
@@ -650,16 +645,16 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0),
-    _vm._v(" "),
     _c("main", [
       _c(
         "ul",
         _vm._l(_vm.posts, function (post) {
           return _c("li", { key: post.id }, [
-            _c("h2", { staticClass: "post-title" }, [
-              _vm._v(_vm._s(post.title)),
-            ]),
+            _c("h2", {}, [_vm._v(_vm._s(post.title))]),
+            _vm._v(" "),
+            _c("h3", {}, [_vm._v(_vm._s(post.category.cat_name))]),
+            _vm._v(" "),
+            _c("small", [_vm._v("Author: " + _vm._s(post.user.name))]),
           ])
         }),
         0
@@ -667,18 +662,7 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("nav", [
-      _c("a", { attrs: { href: "/login" } }, [_vm._v("Login")]),
-      _vm._v(" "),
-      _c("a", { attrs: { href: "/register" } }, [_vm._v("Register")]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
