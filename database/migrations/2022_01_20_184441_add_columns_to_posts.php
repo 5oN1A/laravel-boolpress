@@ -15,7 +15,6 @@ class AddColumnsToPosts extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id');
-
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories');
@@ -34,4 +33,3 @@ class AddColumnsToPosts extends Migration
         });
     }
 }
-

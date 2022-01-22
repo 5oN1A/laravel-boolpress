@@ -5,11 +5,10 @@
 
 @section('content')
     <div class="container">
-        <h1>New post</h1>
+        <h1>Create a new post</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
-                Ci sono errori nel form:
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -22,7 +21,7 @@
             @csrf
             <div class="mb-3 form-group">
                 <label for="field_title" class="form-label">Title</label>
-                <input type="text" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" name="title"
+                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
                     id="field_title">
                 @if ($errors->has('title'))
                     <div class="invalid-feedback">

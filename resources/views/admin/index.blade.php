@@ -4,7 +4,15 @@
 
 
 @section('content')
+
+
     <div class="container">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
+
         <ul class="list-group">
             @foreach ($posts as $post)
                 <li class="list-group-item d-flex justi">
@@ -20,5 +28,4 @@
         </ul>
 
     </div>
-    @endsection
-
+@endsection

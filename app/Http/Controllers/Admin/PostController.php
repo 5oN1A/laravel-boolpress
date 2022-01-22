@@ -33,10 +33,7 @@ class PostController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view("admin.create",  [
-            "categories" => $categories,
-            "tags" => $tags
-        ]);
+        return view("admin.create", ["categories" => $categories, "tags" => $tags]);
     }
 
     /**
@@ -50,8 +47,6 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:100|unique:posts,title',
             'content' => 'required',
-
-
         ]);
 
         $data = $request->all();
@@ -61,10 +56,10 @@ class PostController extends Controller
         $newPost->content = $data['content'];
         $newPost->category_id = $data['category_id'];
         $newPost->user_id = Auth::user()->id;
-
         $newPost->save();
-        $newPost->tags()->sync($data["tags"]);
-
+        if (isset($data["tags"])) {
+            $newPost->tags()->sync($data["tags"]);
+        }
 
         return redirect()->route('admin.posts.index', $newPost->id)->with('success', 'Post created successfully.');
     }
@@ -91,11 +86,7 @@ class PostController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view('admin.edit', [
-            "post" => $post,
-            "categories" => $categories,
-            "tags" => $tags
-        ]);
+        return view('admin.edit', ["post" => $post, "categories" => $categories, "tags" => $tags]);
     }
 
     /**
@@ -111,10 +102,13 @@ class PostController extends Controller
 
         $post->update($data);
 
-        $post->tags()->sync($data["tags"]);
+        if (isset($data["tags"])) {
+            $post->tags()->sync($data["tags"]);
+        }else {
+            $post->tags()->detach();
+        }
 
-
-        return redirect()->route('admin.posts.show', $post->id);
+        return redirect()->route('admin.posts.show', $post->id)->with('success', 'Post updated successfully.');
     }
 
     /**
@@ -126,6 +120,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $post->tags()->detach();
         $post->delete();
 
         return redirect()->route('admin.posts.index');
