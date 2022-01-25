@@ -174,6 +174,11 @@ __webpack_require__.r(__webpack_exports__);
       lastPage: null
     };
   },
+  computed: {
+    creationDate: function creationDate() {
+      return window.dayjs(this.posts.created_at).format("DD/MM/YYYY HH:mm:ss");
+    }
+  },
   methods: {
     getData: function getData() {
       var _this = this;
@@ -723,7 +728,14 @@ var render = function () {
               _vm._v(" "),
               _c("p", { domProps: { innerHTML: _vm._s(post.content) } }),
               _vm._v(" "),
-              _c("p", [_vm._v("Author: " + _vm._s(post.user.name))]),
+              _c("p", [
+                _vm._v(
+                  "Created " +
+                    _vm._s(_vm.creationDate) +
+                    " by " +
+                    _vm._s(post.user.name)
+                ),
+              ]),
               _vm._v(" "),
               _c("p", [_c("small", [_vm._v(_vm._s(post.category.cat_name))])]),
               _vm._v(" "),

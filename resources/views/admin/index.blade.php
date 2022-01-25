@@ -23,9 +23,14 @@
                         <a href="{{ route('admin.posts.edit', $post->id) }}">Edit</a>
                     </div>
                 </li>
-
             @endforeach
         </ul>
+
+    <div class="d-flex justify-content-center my-4">
+        {!! $posts->links() !!}
+    </div>
+
+       
 
     </div>
 @endsection

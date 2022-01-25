@@ -7,7 +7,7 @@
             <strong>{{ post.title }}</strong>
           </h2>
           <p v-html="post.content"></p>
-          <p>Author: {{ post.user.name }}</p>
+          <p>Created {{ creationDate }} by {{ post.user.name }}</p>
           <p>
             <small>{{ post.category.cat_name }}</small>
           </p>
@@ -78,7 +78,11 @@ export default {
       lastPage: null
     };
   },
-  
+  computed: {
+    creationDate: function creationDate() {
+      return window.dayjs(this.posts.created_at).format("DD/MM/YYYY HH:mm:ss");
+    },
+  },  
   methods: {
     getData(page = 1) {
       axios.get("/api/posts?page=" + page).then((resp) => {
