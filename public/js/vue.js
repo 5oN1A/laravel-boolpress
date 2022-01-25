@@ -118,20 +118,76 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
     return {
       welcomeMsg: "Welcome!",
-      posts: []
+      posts: [],
+      currentPage: 1,
+      lastPage: null
     };
   },
-  mounted: function mounted() {
-    var _this = this;
+  methods: {
+    getData: function getData() {
+      var _this = this;
 
-    window.axios.get("/api/posts").then(function (resp) {
-      _this.posts = resp.data;
-    });
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.get("/api/posts?page=" + page).then(function (resp) {
+        _this.posts = resp.data.data;
+        _this.currentPage = resp.data.current_page;
+        _this.lastPage = resp.data.last_page;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getData();
   }
 });
 
@@ -657,18 +713,19 @@ var render = function () {
     _c("main", [
       _c(
         "ul",
+        { staticClass: "list-group" },
         _vm._l(_vm.posts, function (post) {
           return _c(
             "li",
-            { key: post.id },
+            { key: post.id, staticClass: "list-group-item" },
             [
-              _c("h2", [_vm._v(_vm._s(post.title))]),
-              _vm._v(" "),
-              _c("h3", [_vm._v(_vm._s(post.category.cat_name))]),
-              _vm._v(" "),
-              _c("small", [_vm._v("Author: " + _vm._s(post.user.name))]),
+              _c("h2", [_c("strong", [_vm._v(_vm._s(post.title))])]),
               _vm._v(" "),
               _c("p", { domProps: { innerHTML: _vm._s(post.content) } }),
+              _vm._v(" "),
+              _c("p", [_vm._v("Author: " + _vm._s(post.user.name))]),
+              _vm._v(" "),
+              _c("p", [_c("small", [_vm._v(_vm._s(post.category.cat_name))])]),
               _vm._v(" "),
               _vm._l(post.tags, function (tag) {
                 return _c(
@@ -687,6 +744,92 @@ var render = function () {
         }),
         0
       ),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col justify-content-center d-flex" }, [
+          _c("nav", [
+            _c(
+              "ul",
+              { staticClass: "pagination" },
+              [
+                _c("li", [
+                  _vm.currentPage != 1
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "page-link",
+                          on: {
+                            click: function ($event) {
+                              return _vm.getData(_vm.currentPage - 1)
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                  Indietro\n                              "
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.lastPage, function (page) {
+                  return _c(
+                    "li",
+                    {
+                      key: page,
+                      staticClass: "page-item",
+                      class: { active: _vm.currentPage === page },
+                    },
+                    [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "page-link",
+                          on: {
+                            click: function ($event) {
+                              return _vm.getData(page)
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                  " +
+                              _vm._s(page) +
+                              "\n                              "
+                          ),
+                        ]
+                      ),
+                    ]
+                  )
+                }),
+                _vm._v(" "),
+                _c("li", [
+                  _vm.currentPage != _vm.lastPage
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "page-link",
+                          on: {
+                            click: function ($event) {
+                              return _vm.getData(_vm.currentPage + 1)
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                  Avanti\n                              "
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
+                ]),
+              ],
+              2
+            ),
+          ]),
+        ]),
+      ]),
     ]),
   ])
 }

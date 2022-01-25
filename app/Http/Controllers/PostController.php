@@ -10,7 +10,7 @@ class PostController extends Controller
     function index() {
 
       /*  $posts = Post::all();  */
-        $posts = Post::with('category')->with('user')->with('tags')->get(); 
+        $posts = Post::with('category')->with('user')->with('tags')->paginate(4); 
 
         return $posts;
       }
