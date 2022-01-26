@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Edit post</h1>
+        <h2 class="mb-5">Edit post</h2>
 
         <!--Form  errors -->
         @if ($errors->any())
@@ -51,7 +51,7 @@
 
             <!--Post Category Field -->
 
-            <div class="form-group">
+            <div class="mb-3 form-group">
                 <label class="form-label">Category</label>
                 <select name="category_id" class="form-control">
                     @foreach ($categories as $category)
@@ -62,7 +62,8 @@
 
             <!--Post Tags Checkbox -->
 
-            <div class="form-group">
+            <div class="mb-3 form-group">
+                <div class="form-label">Tags</div>
                 @foreach ($tags as $tag)
                     <label>
                         {{ $tag->tag_name }}
@@ -73,15 +74,16 @@
 
                 <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-secondary mr-3" type="reset">Go Back</a>
                 <button class="btn btn-success" type="submit" value="submit">Edit</button>
+                <span>
+                    <form class="mb-0 mt-3 text-center" action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
+                        @csrf
+                        @method('delete')
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                </span>
 
         </form>
 
-        <form class="mb-0 mt-3 text-center" action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
-            @csrf
-            @method('delete')
-            <input class="btn btn-danger" type="submit" value="Delete">
-        </form>
- 
 
     <script src="//js.nicedit.com/nicEdit-latest.js" type="text/javascript">
     </script>

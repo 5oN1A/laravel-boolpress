@@ -12,6 +12,12 @@ class PostController extends Controller
       /*  $posts = Post::all();  */
         $posts = Post::with('category')->with('user')->with('tags')->paginate(4); 
 
-        return $posts;
+        return response()->json($posts);
+    }
+
+      public function show($id) {
+        $post = Post::where("id", $id)->with('category')->with('user')->with('tags')->first();
+
+        return response()->json($post);
       }
 }

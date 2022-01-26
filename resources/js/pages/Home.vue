@@ -3,9 +3,11 @@
     <main>
       <ul class="list-group">
         <li class="list-group-item" v-for="post in posts" :key="post.id">
+          <router-link :to="{ name:'posts.show', params: { id: post.id } }">
           <h2>
             <strong>{{ post.title }}</strong>
           </h2>
+           </router-link>
           <p v-html="post.content"></p>
           <p>Created {{ creationDate }} by {{ post.user.name }}</p>
           <p>
@@ -18,7 +20,9 @@
             class="badge bg-primary text-white ms-2 rounded-pill text-small"
             >{{ tag.tag_name }}</span
           >
+         
         </li>
+        
       </ul>
       <div class="row">
                 <div class="col justify-content-center d-flex">

@@ -12,21 +12,33 @@
             </div>
         @endif
 
-        <h1>{{ $post->title }}</h1>
-        <div>
-            <p>{!! $post->content !!}</p>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h1 class="text-center mb-5">{{ $post->title }}</h1>
+                <div>
+                    <p>{!! $post->content !!}</p>
 
-            <h5>Author: {{ $post->user->name }}</h5>
-            <h3 class="text-primary"><span class="font-italic">Category </span>{{ $post->category->cat_name }}</h3>
+                    <h5>Written by {{ $post->user->name }}</h5>
+                    <h6>Category: {{ $post->category->cat_name }}</h6>
 
-            <div class="form-group">
-                <strong>Tag</strong>
-                <br>
-                @foreach ($post->tags as $tag)
-                    <span class="badge bg-primary text-white">{{ $tag->tag_name }}</span>
-                @endforeach
+                    <div class="mb-5">
+
+                        @foreach ($post->tags as $tag)
+                            <span class="badge bg-primary text-white">{{ $tag->tag_name }}</span>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
-        <a href="{{ route('admin.posts.index') }}" class="">Back to all posts</a>
+
+        <div class="mt-5 d-flex gap-2 justify-content-center align-items-center">
+            <a class="btn btn-primary" href="{{ route('admin.posts.index') }}" class="">Back to all posts</a>
+            <a class="btn btn-primary" href="{{ route('admin.posts.edit', $post->id) }}">Edit</a>
+            <form class="text-center" action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
+                @csrf
+                @method('delete')
+                <input class="btn btn-danger" type="submit" value="Delete">
+            </form>
+        </div>
     </div>
 @endsection
