@@ -7,17 +7,31 @@ use App\Post;
 
 class PostController extends Controller
 {
-    function index() {
+  function index(Request $request)
+  {
 
-      /*  $posts = Post::all();  */
-        $posts = Post::with('category')->with('user')->with('tags')->paginate(4); 
+    /*  $posts = Post::all();  */
+    $category = $request->query("category");
 
-        return response()->json($posts);
+    $posts = Post::with('category')->with('user')->with('tags');
+   
+    if ($category) {
+      $posts = $posts->where('category_id', $category);
     }
+    
+    $posts = $posts->paginate(4);
 
-      public function show($id) {
-        $post = Post::where("id", $id)->with('category')->with('user')->with('tags')->first();
+    
 
-        return response()->json($post);
-      }
+    return response()->json($posts);
+  }
+
+  public function show($id)
+  {
+    $post = Post::where("id", $id)->with('category')->with('user')->with('tags')->first();
+
+  
+
+    return response()->json($post);
+  }
 }

@@ -1,23 +1,28 @@
 <template>
   <div>
-  <h2>
-            <strong>{{ post.title }}</strong>
-          </h2>
-         
-          <p v-html="post.content"></p>
-         <p>Created {{ post.created_at }}</p> 
-    <!--       <p>{{ post.user.name }}</p> -->
-            <small>{{ post.category.cat_name }}</small>
+    <h2>
+      <strong>{{ post ? post.title : "" }}</strong>
+    </h2>
+
+    <p v-html="post ? post.content : ''"></p>
+
+    <p>Created {{ post ? post.created_at : "" }}</p>
+    <p>{{ post ? post.user.name : "" }}</p>
+    <small>{{ post ? post.category.cat_name : "" }}</small>
+    <span
+      v-for="tag in post ? post.tags : ''"
+      :key="tag.id"
+      class="badge bg-primary text-white ms-2 rounded-pill text-small"
+      >{{ tag.tag_name }}</span
+    >
   </div>
 </template>
 
 <script>
-
 export default {
   data() {
     return {
-      post: Object,
-     
+      post: null,
     };
   },
   methods: {
