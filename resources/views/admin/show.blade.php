@@ -14,7 +14,11 @@
 
         <div class="row justify-content-center">
             <div class="col-8">
+                
+                
                 <h1 class="text-center mb-5">{{ $post->title }}</h1>
+                    <img class="w-50 text-center" src="{{ asset('storage/' . $post->cover_img) }}" alt="post img">
+
                 <div>
                     <p>{!! $post->content !!}</p>
 

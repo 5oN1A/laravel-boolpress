@@ -17,8 +17,9 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.posts.store') }}" method="post">
+        <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
             @csrf
+
             <div class="mb-3 form-group">
                 <label for="field_title" class="form-label">Title</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="field_title">
@@ -30,9 +31,19 @@
             </div>
 
             <div class="mb-3 form-group">
+                <label for="field_cover_img" class="form-label">Cover Image</label>
+                <input type="file" class="form-control @error('cover_img') is-invalid @enderror" name="cover_img" id="field_cover_img">
+                @if ($errors->has('cover_img'))
+                    <div class="invalid-feedback">
+                        {{ $errors->get('cover_img')[0] }}
+                    </div>
+                @endif
+            </div>
+
+            <div class="mb-3 form-group">
                 <label for="field_content" class="form-label">Content</label>
                 <textarea class="form-control @error('content') is-invalid @enderror" name="content"
-                    value="{{ old('content') }}"></textarea>
+                    ></textarea>
                 @if ($errors->has('content'))
                     <div class="invalid-feedback">
                         {{ $errors->get('content')[0] }}

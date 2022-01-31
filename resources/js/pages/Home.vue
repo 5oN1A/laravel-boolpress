@@ -13,17 +13,22 @@
     <div v-else>
       <div class="container">
         <div class="mt-5 row justify-content-between">
-
           <!-- lista posts -->
           <div class="col-7">
             <ul class="list-group">
               <li class="list-group-item" v-for="post in posts" :key="post.id">
-                <router-link class="post-title"
+                <router-link
+                  class="post-title"
                   :to="{ name: 'posts.show', params: { id: post.id } }"
                 >
                   <h2 class="py-3 text-center">
-                    <strong >{{ post.title }}</strong>
+                    <strong>{{ post.title }}</strong>
                   </h2>
+                  <img
+                    class="w-25"
+                    :src="post ? `/storage/` + post.cover_img : ''"
+                    :alt="post ? post.title : ''"
+                  />
                 </router-link>
                 <p v-html="post.content"></p>
                 <p>Created {{ creationDate }} by {{ post.user.name }}</p>
@@ -46,46 +51,46 @@
                 >
               </li>
             </ul>
-                    <!-- menu paginazione -->
+            <!-- menu paginazione -->
 
-        <div class="row mt-3">
-          <div class="col justify-content-center d-flex">
-            <nav>
-              <ul class="pagination">
-                <li>
-                  <button
-                    class="page-link"
-                    v-if="currentPage != 1"
-                    @click="getData(currentPage - 1)"
-                  >
-                    Indietro
-                  </button>
-                </li>
+            <div class="row mt-3">
+              <div class="col justify-content-center d-flex">
+                <nav>
+                  <ul class="pagination">
+                    <li>
+                      <button
+                        class="page-link"
+                        v-if="currentPage != 1"
+                        @click="getData(currentPage - 1)"
+                      >
+                        Indietro
+                      </button>
+                    </li>
 
-                <li
-                  v-for="page of lastPage"
-                  :key="page"
-                  class="page-item"
-                  :class="{ active: currentPage === page }"
-                >
-                  <button class="page-link" @click="getData(page)">
-                    {{ page }}
-                  </button>
-                </li>
+                    <li
+                      v-for="page of lastPage"
+                      :key="page"
+                      class="page-item"
+                      :class="{ active: currentPage === page }"
+                    >
+                      <button class="page-link" @click="getData(page)">
+                        {{ page }}
+                      </button>
+                    </li>
 
-                <li>
-                  <button
-                    class="page-link"
-                    v-if="currentPage != lastPage"
-                    @click="getData(currentPage + 1)"
-                  >
-                    Avanti
-                  </button>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
+                    <li>
+                      <button
+                        class="page-link"
+                        v-if="currentPage != lastPage"
+                        @click="getData(currentPage + 1)"
+                      >
+                        Avanti
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
           </div>
 
           <!-- lista categories -->
@@ -106,8 +111,6 @@
             </ul>
           </div>
         </div>
-
-
       </div>
     </div>
   </main>
@@ -174,7 +177,7 @@ export default {
 }
 
 .categories-col {
-  background-color: #D3E4CD;
+  background-color: #d3e4cd;
 }
 
 .categories-col li {

@@ -14,15 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Route::middleware('auth:api')->get('/user', function (Request $request) {
+ /* Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
- */
-Route::get('/posts', 'PostController@index');
+}); */
 
-Route::get('/posts/{id}', 'PostController@show');
+Route::get('/posts', 'Api\PostController@index');
 
-Route::get('/categories', 'CategoryController@index');
+Route::get('/posts/{id}', 'Api\PostController@show');
 
-Route::get('/categories/{category}', 'CategoryController@show');
+Route::get('/categories', 'Api\CategoryController@index');
+
+Route::get('/categories/{category}', 'Api\CategoryController@show');
+
+Route::post('/contacts', 'Api\ContactController@store');
+
 

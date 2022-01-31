@@ -17,7 +17,7 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.posts.update', $post->id) }}" method="post">
+        <form action="{{ route('admin.posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('put')
 
@@ -49,6 +49,20 @@
                 @endif
             </div>
 
+            <!--Post Cover_img Field -->
+
+            <div class="mb-3 form-group">
+                <label for="field_cover_img" class="form-label">Cover Image</label>
+                <input type="file" class="form-control {{ $errors->has('cover_img') ? 'is-invalid' : '' }}" name="cover_img"
+                    id="field_cover_img" value="{{ $post->cover_img }}">
+
+                @if ($errors->has('cover_img'))
+                    <div class="invalid-feedback">
+                        {{ $errors->get('cover_img')[0] }}
+                    </div>
+                @endif
+            </div>
+
             <!--Post Category Field -->
 
             <div class="mb-3 form-group">
@@ -67,21 +81,22 @@
                 @foreach ($tags as $tag)
                     <label>
                         {{ $tag->tag_name }}
-                        <input name="tags[]" type="checkbox" value="{{ $tag->id }}" @if ($post->tags->contains($tag)) checked @endif>
+                        <input name="tags[]" class="me-3" type="checkbox" value="{{ $tag->id }}" @if ($post->tags->contains($tag)) checked @endif>
                     </label>
                 @endforeach
             </div>
 
                 <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-secondary mr-3" type="reset">Go Back</a>
                 <button class="btn btn-success" type="submit" value="submit">Edit</button>
-                <span>
-                    <form class="mb-0 mt-3 text-center" action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
-                        @csrf
-                        @method('delete')
-                        <input class="btn btn-danger" type="submit" value="Delete">
-                    </form>
-                </span>
+                
+                   
+               
 
+        </form >
+        <form class="mb-0 mt-3 d-inline text-center" action="{{ route('admin.posts.destroy', $post->id) }}" method="POST">
+            @csrf
+            @method('delete')
+            <input class="btn btn-danger" type="submit" value="Delete">
         </form>
 
 

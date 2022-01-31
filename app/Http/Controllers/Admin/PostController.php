@@ -8,6 +8,7 @@ use App\Post;
 use App\Tag;
 use App\Category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -47,6 +48,7 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:100|unique:posts,title',
             'content' => 'required',
+            'cover_img' => 'file'
         ]);
 
         $data = $request->all();
@@ -56,6 +58,12 @@ class PostController extends Controller
         $newPost->content = $data['content'];
         $newPost->category_id = $data['category_id'];
         $newPost->user_id = Auth::user()->id;
+
+        if ($request->file('cover_img')) {
+            $newPost->cover_img = Storage::put("posts", $data['cover_img']);
+        }
+
+
         $newPost->save();
         if (isset($data["tags"])) {
             $newPost->tags()->sync($data["tags"]);
@@ -99,14 +107,26 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
+        $oldImg = $post->cover_img;
 
-        $post->update($data);
+        $post->fill($data);
+
+        if ($request->file('cover_img')) {
+            if ($oldImg) {
+                Storage::delete($oldImg);
+            }
+            
+            $post->cover_img = $request->file('cover_img')->store('posts');
+        }
+
 
         if (isset($data["tags"])) {
             $post->tags()->sync($data["tags"]);
-        }else {
+        } else {
             $post->tags()->detach();
         }
+
+        $post->save();
 
         return redirect()->route('admin.posts.show', $post->id)->with('success', 'Post updated successfully.');
     }

@@ -4,6 +4,13 @@
       <strong>{{ post ? post.title : "" }}</strong>
     </h2>
 
+    <img
+      class="w-50"
+      :src="post ? `/storage/` + post.cover_img : ''"
+      :alt="post ? post.title : ''"
+    />
+
+
     <p v-html="post ? post.content : ''"></p>
 
     <p>Created {{ post ? post.created_at : "" }}</p>

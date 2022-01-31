@@ -13,6 +13,8 @@
             </div>
         @endif
 
+        <a class="btn btn-primary mb-5" href="{{ route('admin.posts.create') }}">New post</a>
+
         <ul class="list-group">
             @foreach ($posts as $post)
                 <li class="list-group-item d-flex align-items-center">

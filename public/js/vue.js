@@ -261,7 +261,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      formSubmitted: false,
+      form: {
+        name: "",
+        email: "",
+        message: ""
+      }
+    };
+  },
+  methods: {
+    onSubmit: function onSubmit() {
+      var _this = this;
+
+      window.axios.post("/api/contacts", this.form).then(function (resp) {
+        _this.formSubmitted = true;
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -274,6 +326,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -527,6 +582,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -580,7 +642,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.post-title[data-v-b3c5cf30] {\r\n  text-decoration: none !important;\n}\n.categories-col[data-v-b3c5cf30] {\r\n  background-color: #D3E4CD;\n}\n.categories-col li[data-v-b3c5cf30] {\r\n  cursor: pointer;\n}\n.loading-shell[data-v-b3c5cf30] {\r\n  height: 100vh;\r\n  width: 100vw;\n}\n.spinner-border[data-v-b3c5cf30] {\r\n  height: 200px;\r\n  width: 200px;\r\n  color: aquamarine;\n}\r\n", ""]);
+exports.push([module.i, "\n.post-title[data-v-b3c5cf30] {\r\n  text-decoration: none !important;\n}\n.categories-col[data-v-b3c5cf30] {\r\n  background-color: #d3e4cd;\n}\n.categories-col li[data-v-b3c5cf30] {\r\n  cursor: pointer;\n}\n.loading-shell[data-v-b3c5cf30] {\r\n  height: 100vh;\r\n  width: 100vw;\n}\n.spinner-border[data-v-b3c5cf30] {\r\n  height: 200px;\r\n  width: 200px;\r\n  color: aquamarine;\n}\r\n", ""]);
 
 // exports
 
@@ -1851,7 +1913,7 @@ var render = function () {
                     [
                       _vm._v(
                         "\n                        " +
-                          _vm._s(_vm.user.name ? _vm.user.name : "login") +
+                          _vm._s(_vm.user.name ? _vm.user.name : "Login") +
                           "\n                    "
                       ),
                     ]
@@ -1960,7 +2022,106 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("Contact")])
+  return _c("div", { staticClass: "container pb-5" }, [
+    !_vm.formSubmitted
+      ? _c(
+          "form",
+          {
+            on: {
+              submit: function ($event) {
+                $event.preventDefault()
+                return _vm.onSubmit.apply(null, arguments)
+              },
+            },
+          },
+          [
+            _c("div", { staticClass: "form-group mb-3" }, [
+              _c("label", { staticClass: "form-label" }, [_vm._v("Nome")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.name,
+                    expression: "form.name",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text" },
+                domProps: { value: _vm.form.name },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "name", $event.target.value)
+                  },
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group mb-3" }, [
+              _c("label", { staticClass: "form-label" }, [_vm._v("Email")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.email,
+                    expression: "form.email",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text" },
+                domProps: { value: _vm.form.email },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "email", $event.target.value)
+                  },
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group mb-3" }, [
+              _c("label", { staticClass: "form-label" }, [_vm._v("Messaggio")]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.message,
+                    expression: "form.message",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text" },
+                domProps: { value: _vm.form.message },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "message", $event.target.value)
+                  },
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("button", { staticClass: "btn btn-success" }, [_vm._v("Invia")]),
+          ]
+        )
+      : _c("div", { staticClass: "alert alert-success" }, [
+          _vm._v(
+            "\n    Grazie per averci contattato, le risponderemo il prima possibile.\n  "
+          ),
+        ]),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -2021,6 +2182,14 @@ var render = function () {
                             _c("h2", { staticClass: "py-3 text-center" }, [
                               _c("strong", [_vm._v(_vm._s(post.title))]),
                             ]),
+                            _vm._v(" "),
+                            _c("img", {
+                              staticClass: "w-25",
+                              attrs: {
+                                src: post ? "/storage/" + post.cover_img : "",
+                                alt: post ? post.title : "",
+                              },
+                            }),
                           ]
                         ),
                         _vm._v(" "),
@@ -2085,7 +2254,7 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                  Indietro\n                "
+                                        "\n                      Indietro\n                    "
                                       ),
                                     ]
                                   )
@@ -2113,9 +2282,9 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                  " +
+                                        "\n                      " +
                                           _vm._s(page) +
-                                          "\n                "
+                                          "\n                    "
                                       ),
                                     ]
                                   ),
@@ -2139,7 +2308,7 @@ var render = function () {
                                     },
                                     [
                                       _vm._v(
-                                        "\n                  Avanti\n                "
+                                        "\n                      Avanti\n                    "
                                       ),
                                     ]
                                   )
@@ -2285,6 +2454,14 @@ var render = function () {
       _c("h2", [
         _c("strong", [_vm._v(_vm._s(_vm.post ? _vm.post.title : ""))]),
       ]),
+      _vm._v(" "),
+      _c("img", {
+        staticClass: "w-50",
+        attrs: {
+          src: _vm.post ? "/storage/" + _vm.post.cover_img : "",
+          alt: _vm.post ? _vm.post.title : "",
+        },
+      }),
       _vm._v(" "),
       _c("p", {
         domProps: { innerHTML: _vm._s(_vm.post ? _vm.post.content : "") },
